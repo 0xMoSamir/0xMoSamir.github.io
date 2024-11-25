@@ -26,5 +26,9 @@
   // Run tasks in macOS
   "terminal.integrated.profiles.osx": {
     "zsh": { "path": "/bin/zsh", "args": ["-l", "-i"] }
+  },
+  "liveServer.settings.port": 5518,
+  "yaml.schemas": {
+    "https://json.schemastore.org/jekyll.json": "file:///c%3A/Users/Mohamed%20Samir/Desktop/0xMoSamir.github.io/_config.yml"
   }
 }
