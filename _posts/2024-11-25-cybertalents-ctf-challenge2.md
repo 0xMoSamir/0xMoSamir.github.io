@@ -24,6 +24,7 @@ So, I will replace Mozilla with PublicTradeCo to see is it gonna work or not..
 and yea after changing the User-Agent browser we got a different response message now which is: Welcome employee , the flag you are looking for is here somewhere
 flag is in the response header:
 ![Screenshot](/assets/img/secret%20browser/image-5.png)
+
 So yea this is our Flag : W3lcomeC0mpanyUs3R
 
 Wish to see you in the next challenge bro 
