@@ -97,7 +97,7 @@ theme_mode: # [light | dark]
 cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: https://www.pinterest.com/pin/48624870971936846/
+avatar: https://www.facebook.com/photo/?fbid=1085521882985434&set=a.320394636164833
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
