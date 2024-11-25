@@ -1,12 +1,12 @@
 ---
-title: "CyberTalents CTF Challenge Writeup"
+title: "Challenge Name: admin gate first"
 date: 2024-11-25 12:00:00 +0000
 categories: [CTF, CyberTalents]
 tags: [Writeup, Cybersecurity, CyberTalents]
 pin: true
 ---
 
-Challenge Name: admin gate first
+Challenge Name: admin gate first,
 Flag is safe in the admin account info
 
 In this post, I'll walk you through my approach to solving the "Admin Gate First" from the CyberTalents CTF.
