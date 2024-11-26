@@ -22,37 +22,13 @@ FILE= sourceXXXX : Suggests a file or resource named "sourceXXXX," where "XXXX" 
 XXXX are numbers > 7000 & < 9000 : Indicates that "XXXX" is a number between 7001 and 8999.
 
 So I need a tool to try this on the target so, I’ll use burpsuite the intruder model, I’ll edit the url and add sourceXXXX and I will replace XXXX with a different number starts from 7000 until 8999 and I will make a cup of tea until it will finish it’s job, so let’s do it:
-this is the url before adding the file source in the directory:
-
-http://wcamxwl32pue3e6mekgvd1gf9zrqqyz8wqrwf9vw-web.cybertalentslabs.com/
 
 I will add sourceXXXX
-
-http://wcamxwl32pue3e6mekgvd1gf9zrqqyz8wqrwf9vw-web.cybertalentslabs.com/sourceXXXX
-
 ![Screenshot](/assets/img/concmarks/4.png)
 
 As u see here I edited XXXX and I added it between §§ because it’s the part that I will change in every request, so let’s create our payload:
-
 Oookkayy actually burpsuite will take too much time to do that, so I’ll use a python script to do this task for me to just save time..
-
-import requests
-import time
-
-url = "http://wcamxwl32pue3e6mekgvd1gf9zrqqyz8wqrwf9vw-web.cybertalentslabs.com/source"
-
-for number in range(7001, 9000):  # Iterate through the range 7001 to 8999
-    full_url = f"{url}{number}"  # Construct the full URL
-    try:
-        response = requests.get(full_url)  # Send a GET request
-        if response.status_code == 200:  # Check for successful response
-            print(f"Valid file found: source{number}")
-        else:
-            print(f"Checked: source{number} - Status Code: {response.status_code}")
-        time.sleep(0.2)  # Add a small delay to avoid rate-limiting issues
-    except requests.exceptions.RequestException as e:  # Handle any errors
-        print(f"Error with {full_url}: {e}")
-    
+![Screenshot](/assets/img/concmarks/11.png)
     Imports:
 -requests: For sending HTTP requests.
 -time: For adding delays between requests.
@@ -118,8 +94,7 @@ Bypass Logic:
 The !== operator compares input1 (array) with input2 (array) and evaluates them as not strictly equal, even if their content matches.
 Hashing an array with @hash("md5", $salt.$input1) results in NULL, which is equal for both n1[] and n2[] due to the silent error suppression (@).
 let’s try it and see the result, our payload will be like
-[text](http://wcamxwl32pue3e6mekgvd1gf9zrqqyz8wqrwf9vw-web.cybertalentslabs.com/?n1[]=&n2[]=1)
-
+/?n1[]=&n2[]=1
 and yea we got the flag!
 ![Screenshot](/assets/img/concmarks/10.png)
 
