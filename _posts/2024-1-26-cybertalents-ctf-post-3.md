@@ -8,13 +8,16 @@ pin: true
 it might be useful to find a mark.
 
 this is our target:
+
 ![Screenshot](/assets/img/concmarks/image.png)
 
 Okay guys, I guess this challenge It depends on exploring something mysterious, maybe a comment or something in the page source or something I will figure it out when I inspect the page, so let’s open the page source:
+
 ![Screenshot](/assets/img/concmarks/image1.png)
 
 Yea as we can see, there is nothing interesting here just very basic HTML Codes.
 let’s inspect the main page and see :
+
 ![Screenshot](/assets/img/concmarks/image3.png)
 
 yea we got this pretty comment, let’s explain it :
@@ -24,10 +27,12 @@ XXXX are numbers > 7000 & < 9000 : Indicates that "XXXX" is a number between 700
 So I need a tool to try this on the target so, I’ll use burpsuite the intruder model, I’ll edit the url and add sourceXXXX and I will replace XXXX with a different number starts from 7000 until 8999 and I will make a cup of tea until it will finish it’s job, so let’s do it:
 
 I will add sourceXXXX
+
 ![Screenshot](/assets/img/concmarks/4.png)
 
 As u see here I edited XXXX and I added it between §§ because it’s the part that I will change in every request, so let’s create our payload:
 Oookkayy actually burpsuite will take too much time to do that, so I’ll use a python script to do this task for me to just save time..
+
 ![Screenshot](/assets/img/concmarks/11.png)
     Imports:
 -requests: For sending HTTP requests.
@@ -55,17 +60,21 @@ time.sleep(0.2): Pauses 0.2 seconds between requests to avoid rate-limiting.
 Error Handling:
 Catches and logs any exceptions during the requests.
 this is the script that I will use, I will save it as a check.py file
+
 ![Screenshot](/assets/img/concmarks/5.png)
 
 then, I will run the code from my terminal using this command
 "python check.py"
+
 ![Screenshot](/assets/img/concmarks/6.png)
 
 it’s working but still without 200 OK response..
+
 ![Screenshot](/assets/img/concmarks/7.png)
 
 and yeaaa finally we got the right source :
 let’s add it into the url and see the result…
+
 ![Screenshot](/assets/img/concmarks/8.png)
 
 and we have been redirected to this page, let’s explain this code..
@@ -73,6 +82,7 @@ and we have been redirected to this page, let’s explain this code..
 The PHP code checks two inputs, n1 and n2, ensuring they are different but produce the same MD5 hash when concatenated with a $salt. To solve this challenge, we need to find two distinct values for n1 and n2 that cause an MD5 hash collision with the given $salt.
 
 let’s try to add a random value into n1&n2 and see:
+
 ![Screenshot](/assets/img/concmarks/9.png)
 
 as we can see:
@@ -96,6 +106,7 @@ Hashing an array with @hash("md5", $salt.$input1) results in NULL, which is equa
 let’s try it and see the result, our payload will be like
 /?n1[]=&n2[]=1
 and yea we got the flag!
+
 ![Screenshot](/assets/img/concmarks/10.png)
 
 FLAG{K0nC473n4710N_!5_50_C00l}
