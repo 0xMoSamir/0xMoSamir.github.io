@@ -2,7 +2,7 @@
 title: "Challenge Name: ConCmarks"
 date: 2024-11-26 12:00:00 +0000
 categories: [CTF, CyberTalents]
-tags: [Writeup, Cybersecurity, CyberTalents, Pentesting]
+tags: [Writeup, Cybersecurity]
 pin: true
 ---
 it might be useful to find a mark.
@@ -127,5 +127,3 @@ FLAG{K0nC473n4710N_!5_50_C00l}
 
 thanks for reading my writeup!
 See u in the next CTF Challenge…
-
-    
