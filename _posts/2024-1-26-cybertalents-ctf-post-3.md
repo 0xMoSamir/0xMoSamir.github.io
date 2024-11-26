@@ -1,8 +1,8 @@
 ---
-title: "Challenge Name: ConCmarks"
-date: 2024-11-26 08:45:00 +0000
+title: "Challenge Name:Concmarks"
+date: 2024-11-25 12:00:00 +0000
 categories: [CTF, CyberTalents]
-tags: [Writeup, Cybersecurity]
+tags: [Writeup, Cybersecurity, CyberTalents]
 pin: true
 ---
 it might be useful to find a mark.
