@@ -1,6 +1,6 @@
 ---
 title: "Challenge Name: ConCmarks"
-date: 2024-11-26 12:00:00 +0000
+date: 2024-11-26 08:45:00 +0000
 categories: [CTF, CyberTalents]
 tags: [Writeup, Cybersecurity]
 pin: true
@@ -25,6 +25,7 @@ So I need a tool to try this on the target so, I’ll use burpsuite the intruder
 this is the url before adding the file source in the directory:
 
 http://wcamxwl32pue3e6mekgvd1gf9zrqqyz8wqrwf9vw-web.cybertalentslabs.com/
+
 I will add sourceXXXX
 
 http://wcamxwl32pue3e6mekgvd1gf9zrqqyz8wqrwf9vw-web.cybertalentslabs.com/sourceXXXX
@@ -38,7 +39,6 @@ Oookkayy actually burpsuite will take too much time to do that, so I’ll use a 
 import requests
 import time
 
-# Base URL provided in the challenge
 url = "http://wcamxwl32pue3e6mekgvd1gf9zrqqyz8wqrwf9vw-web.cybertalentslabs.com/source"
 
 for number in range(7001, 9000):  # Iterate through the range 7001 to 8999
