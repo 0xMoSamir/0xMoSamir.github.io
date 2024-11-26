@@ -1,6 +1,6 @@
 ---
 title: "Challenge Name:Concmarks"
-date: 2024-11-25 12:00:00 +0000
+date: 2024-11-26 12:00:00 +0000
 categories: [CTF, CyberTalents]
 tags: [Writeup, Cybersecurity, CyberTalents]
 pin: true
