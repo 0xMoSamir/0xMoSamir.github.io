@@ -52,11 +52,13 @@ We have four required fields the `RHOSTS` and the `RPORT` and the `SMBUser` and 
 the next is setting the SMBUser and the SMBPass which is `ballen : Password1`, let’s put them and make sure to put them correctly, I will use these two commands :
 
 ```c
-set SMBUser ballen`
+set SMBUser ballen
 
-set SMBPass Password1`
+set SMBPass Password1
 ```
+
 and let’s see :
+
 ![Screenshot](/assets/img/meterpreter/6.png)
 
 let’s show options again to make sure that we are ready to make our attack :
@@ -120,7 +122,6 @@ let's run it..
 
 ![Screenshot](/assets/img/meterpreter/17.png)
 
-**SO:**
 
 **What is the name of the share likely created by the user?**
 
