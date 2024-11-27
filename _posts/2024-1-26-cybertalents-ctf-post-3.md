@@ -3,7 +3,7 @@ title: "Challenge Name:Concmarks"
 date: 2024-11-26 12:00:00 +0000
 categories: [CTF, CyberTalents]
 tags: [Writeup, Cybersecurity, CyberTalents]
-pin: true
+pin: false
 ---
 it might be useful to find a mark.
 
