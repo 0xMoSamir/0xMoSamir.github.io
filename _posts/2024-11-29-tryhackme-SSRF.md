@@ -1,8 +1,8 @@
 ---
 title: "SSRF"
-date: 2024-11-29 12:00:00 +0000
-categories: [walkthrough, TryHackMe]
-tags: [Walkthrough, Cybersecurity, TryHackMe]
+date: 2024-11-28 12:00:00 +0000
+categories: [Walkthrough, Tryhackme]
+tags: [Walkthrough, Cybersecurity, Tryhackme]
 pin: false
 ---
 
