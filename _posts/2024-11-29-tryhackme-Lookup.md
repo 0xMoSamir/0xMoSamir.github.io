@@ -1,8 +1,8 @@
 ---
 title: "Lookup"
-date: 2024-11-28 12:00:00 +0000
-categories: [Walkthrough, Tryhackme]
-tags: [Walkthrough, Cybersecurity, Tryhackme]
+date: 2024-11-29 12:00:00 +0000
+categories: [CTF, Tryhackme]
+tags: [CTF, Cybersecurity, Tryhackme]
 pin: false
 ---
 
