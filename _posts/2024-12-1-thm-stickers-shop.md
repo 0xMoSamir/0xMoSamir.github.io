@@ -26,7 +26,7 @@ nmap -sV -p- 10.10.199.200
 
 ![Screenshot](/assets/img/stickers-shop/6.png)
 
-just the given open port -> 8080 
+just the 8080 port
 
 and let's check if there any hints in the header using `curl` tool :
 
@@ -54,7 +54,7 @@ The page allows users to enter feedback, and after some testing, I found that th
 
 If we tried to access the `http://your-target-ipaddress:8080/flag.txt` directly we will get this message -> **401 Unauthorized**
 
-I made I subdomain enumeration to see if there any hidden path and I used `gobuster` tool..
+I made a subdomain enumeration to see if there any hidden paths  using `gobuster` tool..
 
 ```bash
 gobuster dir -u http://your-target-ipaddress:8080/ -w /usr/share/wordlists/dirb/common.txt
