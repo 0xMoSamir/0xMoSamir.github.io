@@ -3,7 +3,7 @@ title: "Challenge Name: Shadower"
 date: 2024-11-27 12:01:00 +0000
 categories: [CTF, CyberTalents]
 tags: [Writeup, Machines, Cybersecurity, CyberTalents]
-pin: true
+pin: false
 ---
 
 # **Get The highest privilege on the machine and find the flag!**

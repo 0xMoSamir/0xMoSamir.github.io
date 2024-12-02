@@ -3,7 +3,7 @@ title: "Lookup"
 date: 2024-11-29 12:00:00 +0000
 categories: [CTF, Tryhackme]
 tags: [CTF, Cybersecurity, Tryhackme]
-pin: false
+pin: true
 ---
 
 **Test your enumeration skills on this boot-to-root machine.**
