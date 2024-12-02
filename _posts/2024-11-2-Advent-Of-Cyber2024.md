@@ -1,5 +1,5 @@
 ---
-title: " Advent of Cyber 2024 Day 2"
+title: " Advent of Cyber 2024"
 date: 2024-12-1 12:00:00 +0000
 categories: [Writeup, CTF, Tryhackme]
 tags: [Writeup, Cybersecurity, Tryhackme]
