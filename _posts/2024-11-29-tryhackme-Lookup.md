@@ -418,7 +418,7 @@ chmod 600 id_rsa
 and then login as a root!
 
 ```bash
-ssh -i id_rsa rrot@lookup.thm
+ssh -i id_rsa root@lookup.thm
 ```
 ![Screenshot](/assets/img/Lookup/recovery%207.png)
 
