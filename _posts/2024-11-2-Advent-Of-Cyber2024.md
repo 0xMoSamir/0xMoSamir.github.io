@@ -305,4 +305,31 @@ cat flag.txt
 
 *THM{Gl1tch_Was_H3r3}*
 
-see u in day 4 bro `:)`
+**Day 4: I'm all atomic inside!**
+
+Okay Guys I will be a script Kiddie in this task and I will Just write the Answers..
+
+**What was the flag found in the .txt file that is found in the same directory as the PhishingAttachment.xslm artefact?**
+
+Ans: *THM{GlitchTestingForSpearphishing}*
+
+**What ATT&CK technique ID would be our point of interest?**
+
+*T1059*
+
+**What ATT&CK subtechnique ID focuses on the Windows Command Shell?**
+
+*T1059.003*
+
+**What is the name of the Atomic Test to be simulated?**
+
+*Simulate BlackByte Ransomware Print Bombing*
+
+**What is the name of the file used in the test?**
+
+*Wareville_Ransomware.txt*
+
+**What is the flag found from this Atomic Test?**
+
+*THM{R2xpdGNoIGlzIG5vdCB0aGUgZW5lbXk=}*
+
