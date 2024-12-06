@@ -515,6 +515,8 @@ With this discovery, McSkidy still couldn't confirm whether the Mayor intentiona
 
 *Question Hint: There are a lot of townspeople who submitted their wishes, so try iterating up to `20`.*
 
+we can do this using interpreter and use a file.txt has a numbers from 1 to 100 and brute force it but I think It's just an easy number to guess so I used my own guessing..
+
 ![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/59.png)
 
 *THM{Brut3f0rc1n6_mY_w4y}*
