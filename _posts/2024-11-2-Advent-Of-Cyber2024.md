@@ -526,26 +526,23 @@ we can do this using interpreter and use a file.txt has a numbers from 1 to 100 
 *THM{m4y0r_m4lw4r3_b4ckd00rs}*
 
 
+# **Day 6: If I can't find a nice malware to use, I'm not going.**
+
+**Answer the questions below**
 
 
+**What is the flag displayed in the popup window after the EDR detects the malware?**
 
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/60.png)
 
+*THM{GlitchWasHere}*
 
+**What is the flag found in the malstrings.txt document after running floss.exe, and opening the file in a text editor?**
 
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/61.png)
 
+*THM{HiddenClue}*
 
+**If you want to more about sandboxes, have a look at the room `FlareVM: Arsenal of Tools`.**
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+*No answer needed*
