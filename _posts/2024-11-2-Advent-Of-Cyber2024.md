@@ -546,3 +546,61 @@ we can do this using interpreter and use a file.txt has a numbers from 1 to 100 
 **If you want to more about sandboxes, have a look at the room `FlareVM: Arsenal of Tools`.**
 
 *No answer needed*
+
+# **Day 7: Oh, no. I'M SPEAKING IN CLOUDTR**
+
+**What is the other activity made by the user glitch aside from the ListObject action?**
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/62.png)
+
+*PutObject*
+
+**What is the source IP related to the S3 bucket activities of the user glitch?**
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/64.png)
+
+*53.94.201.69*
+
+**Based on the eventSource field, what AWS service generates the ConsoleLogin event?**
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/63.png)
+
+*signin.amazonaws.com*
+
+**When did the anomalous user trigger the ConsoleLogin event?**
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/65.png)
+
+*2024-11-28T15:21:54Z*
+
+**What was the name of the user that was created by the mcskidy user?**
+
+*Glitch*
+
+**What type of access was assigned to the anomalous user?**
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/66.png)
+
+*AdministratorAccess*
+
+**Which IP does Mayor Malware typically use to log into AWS?**
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/67.png)
+
+*53.94.201.69*
+
+**What is McSkidy's actual IP address?**
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/68.png)
+
+*31.210.15.79*
+
+**What is the bank account number owned by Mayor Malware?**
+
+![Screenshot](/assets/img/Advent%20Of%20Cyber%202024/69.png)
+
+*2394 6912 7723 1294*
+
+**Want to learn more about log analysis and how to interpret logs from different sources? Check out the `Log Universe` room!**
+
+*No answer needed*
